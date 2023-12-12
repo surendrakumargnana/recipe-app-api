@@ -24,8 +24,10 @@ class CommandTests(SimpleTestCase):
     def test_wait_for_db_delay(self, patched_sleep, patched_check):
         """Test waiting for db when getting OperationError."""
         # Note:- side_effect - will raise error
-        # raise Psycopg2Error twice and then Django raises OperationalError thrice
-        patched_check.side_effect = [Psycopg2OPError] * 2 + [OperationalError] * 3 + [True]
+        # raise Psycopg2Error twice and then Django raises
+        # OperationalError thrice
+        patched_check.side_effect = [Psycopg2OPError] * 2 + \
+            [OperationalError] * 3 + [True]
 
         call_command('wait_for_db')
 
